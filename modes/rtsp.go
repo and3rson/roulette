@@ -25,6 +25,7 @@ func CheckRTSP(addr string) (bool, []string, error) {
 	if err := client.Start(u.Scheme, u.Host); err != nil {
 		return false, nil, err
 	}
+	defer client.Close()
 	if _, _, _, err = client.Describe(u); err != nil {
 		if _, ok := err.(liberrors.ErrClientBadStatusCode); ok {
 			return false, nil, nil
